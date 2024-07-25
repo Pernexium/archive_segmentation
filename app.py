@@ -5,6 +5,7 @@ import streamlit as st
 import unicodedata
 from datetime import datetime
 
+st.set_page_config(page_title="Pernexium")
 # Función para normalizar texto
 def normalize_text(text):
     if isinstance(text, str):
