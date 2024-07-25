@@ -1,16 +1,20 @@
 import math
 import pandas as pd
 from io import BytesIO
-import unidecode
 import streamlit as st
 from datetime import datetime
 
 def normalize_text(text):
     if isinstance(text, str):
-        # Reemplazar 'ñ' con 'n'
-        text = text.replace('ñ', 'n').replace('Ñ', 'N')
-        # Eliminar acentos y otros caracteres especiales
-        text = unidecode.unidecode(text)
+        # Reemplazar caracteres específicos
+        replacements = {
+            'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u',
+            'Á': 'A', 'É': 'E', 'Í': 'I', 'Ó': 'O', 'Ú': 'U',
+            'ñ': 'n', 'Ñ': 'N',
+            'ü': 'u', 'Ü': 'U'
+        }
+        for old, new in replacements.items():
+            text = text.replace(old, new)
     return text
 
 # Aplicar la función de normalización a todo el DataFrame
@@ -65,8 +69,6 @@ if campania:
             st.markdown("---")
             
             df = normalize_dataframe(df)
-            
-            st.info("Debería de estar el cambio.")
 
 
             # Paso 4: Visualice los datos del archivo
