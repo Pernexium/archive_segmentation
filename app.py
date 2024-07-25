@@ -2,19 +2,16 @@ import math
 import pandas as pd
 from io import BytesIO
 import streamlit as st
+import unicodedata
 from datetime import datetime
 
+# Función para normalizar texto
 def normalize_text(text):
     if isinstance(text, str):
-        # Reemplazar caracteres específicos
-        replacements = {
-            'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u',
-            'Á': 'A', 'É': 'E', 'Í': 'I', 'Ó': 'O', 'Ú': 'U',
-            'ñ': 'n', 'Ñ': 'N',
-            'ü': 'u', 'Ü': 'U', 'ÃƒÂ‘': "N"
-        }
-        for old, new in replacements.items():
-            text = text.replace(old, new)
+        # Reemplazar 'ñ' con 'n'
+        text = text.replace('ñ', 'n').replace('Ñ', 'N')
+        # Normalizar a forma NFKD y eliminar caracteres diacríticos
+        text = unicodedata.normalize('NFKD', text).encode('ASCII', 'ignore').decode('utf-8')
     return text
 
 # Aplicar la función de normalización a todo el DataFrame
