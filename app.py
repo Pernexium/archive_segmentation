@@ -65,6 +65,8 @@ if campania:
             st.markdown("---")
             
             df = normalize_dataframe(df)
+            
+            st.info("Debería de estar el cambio.")
 
 
             # Paso 4: Visualice los datos del archivo
