@@ -1,8 +1,21 @@
 import math
 import pandas as pd
 from io import BytesIO
+import unidecode
 import streamlit as st
 from datetime import datetime
+
+def normalize_text(text):
+    if isinstance(text, str):
+        # Reemplazar 'ñ' con 'n'
+        text = text.replace('ñ', 'n').replace('Ñ', 'N')
+        # Eliminar acentos y otros caracteres especiales
+        text = unidecode.unidecode(text)
+    return text
+
+# Aplicar la función de normalización a todo el DataFrame
+def normalize_dataframe(df):
+    return df.applymap(normalize_text)
 
 # Paso 1: Seleccione la campaña
 st.title("Segmentador de Archivos")
@@ -50,6 +63,8 @@ if campania:
 
             st.success("¡Archivo cargado exitosamente!")
             st.markdown("---")
+            
+            df = normalize_dataframe(df)
 
 
             # Paso 4: Visualice los datos del archivo
