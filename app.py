@@ -11,7 +11,7 @@ def normalize_text(text):
             'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u',
             'Á': 'A', 'É': 'E', 'Í': 'I', 'Ó': 'O', 'Ú': 'U',
             'ñ': 'n', 'Ñ': 'N',
-            'ü': 'u', 'Ü': 'U'
+            'ü': 'u', 'Ü': 'U', 'ÃƒÂ‘': "N"
         }
         for old, new in replacements.items():
             text = text.replace(old, new)
