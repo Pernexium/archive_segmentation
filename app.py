@@ -5,12 +5,12 @@ import streamlit as st
 import unicodedata
 from datetime import datetime
 
-st.set_page_config(page_title="Pernexium")
+st.set_page_config(page_title="Pernexium", page_icon="./img/logo_pernexium.png")
 # Función para normalizar texto
 def normalize_text(text):
     if isinstance(text, str):
         # Reemplazar 'ñ' con 'n'
-        text = text.replace('ñ', 'n').replace('Ñ', 'N')
+        text = text.replace('ñ', 'n').replace('Ñ', 'N').replace('.', '')
         # Normalizar a forma NFKD y eliminar caracteres diacríticos
         text = unicodedata.normalize('NFKD', text).encode('ASCII', 'ignore').decode('utf-8')
     return text
